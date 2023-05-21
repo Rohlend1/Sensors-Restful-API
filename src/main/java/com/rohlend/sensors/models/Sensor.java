@@ -1,6 +1,8 @@
 package com.rohlend.sensors.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
@@ -16,6 +18,8 @@ public class Sensor {
 
     @Column(name = "name")
     @Size(min = 3, max = 30, message = "Sensor's name should be between 3 and 30 characters")
+    @NotEmpty
+    @NotNull
     private String name;
 
     @OneToMany(mappedBy = "sensor")
@@ -42,6 +46,14 @@ public class Sensor {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Sensor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
 

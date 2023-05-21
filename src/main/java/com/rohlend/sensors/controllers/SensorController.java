@@ -2,7 +2,6 @@ package com.rohlend.sensors.controllers;
 
 import com.rohlend.sensors.dto.SensorDTO;
 import com.rohlend.sensors.models.Sensor;
-import com.rohlend.sensors.repositories.SensorRepository;
 import com.rohlend.sensors.services.SensorService;
 import com.rohlend.sensors.util.SensorNotCreatedExecption;
 import jakarta.validation.Valid;

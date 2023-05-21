@@ -3,7 +3,7 @@ package com.rohlend.sensors.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -19,15 +19,15 @@ public class Measurement {
     @Column(name = "value")
     @Min(value = -100,message = "Value should be more than -100")
     @Max(value = 100, message = "Value should be less than 100")
-    private double value;
+    @NotNull
+    private Double value;
 
     @Column(name = "raining")
-    @NotEmpty
-    private boolean raining;
+    @NotNull
+    private Boolean raining;
 
     @ManyToOne()
-    @JoinColumn(name = "sensor_id",referencedColumnName = "id")
-    @NotEmpty
+    @JoinColumn(name = "sensor",referencedColumnName = "name")
     private Sensor sensor;
 
     @Column(name="measured_at")
@@ -81,5 +81,16 @@ public class Measurement {
 
     public void setMeasured_at(LocalDateTime measured_at) {
         this.measured_at = measured_at;
+    }
+
+    @Override
+    public String toString() {
+        return "Measurement{" +
+                "id=" + id +
+                ", value=" + value +
+                ", raining=" + raining +
+                ", sensor=" + sensor +
+                ", measured_at=" + measured_at +
+                '}';
     }
 }

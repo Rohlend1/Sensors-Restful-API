@@ -1,22 +1,19 @@
 package com.rohlend.sensors.dto;
 
 
-import com.rohlend.sensors.models.Sensor;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class MeasurementDTO {
 
     @Min(value = -100,message = "Value should be more than -100")
     @Max(value = 100, message = "Value should be less than 100")
-    private double value;
-
-    @NotEmpty
-    private boolean raining;
-
-    @NotEmpty
-    private Sensor sensor;
+    @NotNull
+    private Double value;
+    @NotNull
+    private Boolean raining;
+    private SensorDTO sensor;
 
     public double getValue() {
         return value;
@@ -34,11 +31,20 @@ public class MeasurementDTO {
         this.raining = raining;
     }
 
-    public Sensor getSensor() {
+    public SensorDTO getSensor() {
         return sensor;
     }
 
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
+    public void setSensor(SensorDTO sensorDTO) {
+        this.sensor = sensorDTO;
+    }
+
+    @Override
+    public String toString() {
+        return "MeasurementDTO{" +
+                "value=" + value +
+                ", raining=" + raining +
+                ", sensor=" + sensor +
+                '}';
     }
 }

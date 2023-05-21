@@ -29,7 +29,7 @@ public class SensorService {
     }
 
     public boolean checkIfExist(String name){
-        return sensorRepository.findByName(name) == null;
+        return sensorRepository.findByName(name) != null;
     }
 
 }

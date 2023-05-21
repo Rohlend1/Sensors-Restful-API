@@ -3,6 +3,7 @@ package com.rohlend.sensors.controllers;
 import com.rohlend.sensors.dto.SensorDTO;
 import com.rohlend.sensors.models.Sensor;
 import com.rohlend.sensors.services.SensorService;
+import com.rohlend.sensors.util.ErrorResponse;
 import com.rohlend.sensors.util.SensorNotCreatedExecption;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -11,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,11 +43,13 @@ public class SensorController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    private Sensor convertToSensor(SensorDTO sensorDTO){
-        return modelMapper.map(sensorDTO,Sensor.class);
+    @ExceptionHandler
+    private ResponseEntity<ErrorResponse> handleException(SensorNotCreatedExecption e){
+        ErrorResponse error = new ErrorResponse(e.getMessage(),System.currentTimeMillis());
+        return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
     }
 
-    private SensorDTO convertToSensorDTO(Sensor sensor){
-        return modelMapper.map(sensor,SensorDTO.class);
+    private Sensor convertToSensor(SensorDTO sensorDTO){
+        return modelMapper.map(sensorDTO,Sensor.class);
     }
 }
